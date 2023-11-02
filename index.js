@@ -14,6 +14,8 @@ const productRouter = require('./routers/product.js');
 require('dotenv').config()
 
 
+// only to post in GH 
+
 Connection()
 
 app.use(cors())
