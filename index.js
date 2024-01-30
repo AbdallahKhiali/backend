@@ -1,35 +1,32 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const Connection = require('./config/db.js');
+// const Connection = require('./config/db.js');
 var cors = require('cors');
+var mongoose = require("mongoose");
 
-const employeeRouter = require('./routers/employee.js');
-const storeRouter = require('./routers/store.js');
+
 const userRouter = require('./routers/user.js');
-const appointementRouter = require('./routers/appointement.js');
-const orderRouter = require('./routers/order.js');
-const productRouter = require('./routers/product.js');
+const postRouter = require('./routers/post.js');
+const commentRouter = require('./routers/comment.js');
+var configData = require("./config/connection");
+
 
 require('dotenv').config()
 
+// Database
+var connectionInfo = configData.getConnectionInfo();
+mongoose.connect(connectionInfo.DATABASE_URL);
 
-// only to post in GH 
-
-Connection()
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json())
 
 
-app.use('/employee', employeeRouter);
-app.use('/store', storeRouter);
-app.use('/appointement', appointementRouter);
-app.use('/order', orderRouter);
-app.use('/product', productRouter);
-
-app.use('/user', userRouter);
+app.use('/api/user', userRouter);
+app.use('/api/post', postRouter);
+app.use('/api/comment', commentRouter);
 
 
 

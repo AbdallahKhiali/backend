@@ -51,8 +51,8 @@ const login = (req, res) => {
                     if (doMatch) {
                         // res.json({message:"successfully signed in"})
                         const token = jwt.sign({ _id: savedUser._id }, process.env.SECRET_KEY, { expiresIn: "40m" })
-                        const { _id, username, store } = savedUser
-                        res.json({ token, user: { _id, username, store } })
+                        const { _id, username } = savedUser
+                        res.json({ token, user: { _id, username } })
                     }
                     else {
                         return res.status(422).json({ error: "Invalid username or password" })
