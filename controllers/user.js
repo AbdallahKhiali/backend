@@ -12,12 +12,11 @@ const createUser = async (req, res) => {
             if (user) {
                 res.json('user already exist')
             } else {
-                const { username, password, role } = req.body
+                const { username, password } = req.body
                 bcrypt.hash(password, 16, (err, hash) => {
                     let user = new userModel({
                         username: username,
                         password: hash,
-                        role: role
                     })
                     user.save().then(user => res.json({ message: 'user added successfully', user })).catch(err => res.json(err))
                 })
